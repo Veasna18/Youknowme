@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Richard Sanchez | CV</title>
+    <style>
+        /* --- Root Variables --- */
+        :root {
+            --primary-blue: #003380;
+            --sidebar-bg: #1a1a1a;
+            --text-gray: #4a4a4a;
+            --white: #ffffff;
+        }
+
+        /* --- Global Reset --- */
+        * {
+            box-sizing: border-box;
+            -webkit-print-color-adjust: exact;
+            print-color-adjust: exact;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #525659;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* --- UI Controls (Hidden on Print) --- */
+        .controls {
+            padding: 20px;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            background: #333;
+            gap: 10px;
+        }
+
+        .btn-pdf {
+            background-color: var(--primary-blue);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 16px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+        }
+
+        .btn-pdf:hover { background-color: #004ecc; }
+
+        /* --- A4 Paper Container --- */
+        .page {
+            background: white;
+            width: 210mm;
+            height: 297mm;
+            margin: 30px auto;
+            position: relative;
+            box-shadow: 0 0 20px rgba(0,0,0,0.4);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* --- Header Section --- */
+        .header-banner {
+            background-color: var(--primary-blue);
+            height: 180px;
+            display: flex;
+            align-items: center;
+            padding-left: 230px; /* Space for photo */
+            color: white;
+            position: relative;
+        }
+
+        .header-banner h1 {
+            margin: 0;
+            font-size: 42pt;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .header-banner p {
+            margin: 0;
+            font-size: 16pt;
+            font-weight: 300;
+        }
+
+        .photo-circle {
+            position: absolute;
+            left: 40px;
+            top: 20px;
+            width: 170px;
+            height: 170px;
+            border-radius: 50%;
+            border: 6px solid var(--primary-blue);
+            overflow: hidden;
+            z-index: 10;
+            background: #eee;
+        }
+
+        .photo-circle img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* --- Main Layout --- */
+        .content {
+            display: flex;
+            flex: 1;
+        }
+
+        /* Sidebar (Black) */
+        .sidebar {
+            width: 33%;
+            background-color: var(--sidebar-bg);
+            color: white;
+            padding: 40px 25px;
+            padding-top: 60px; /* Offset for photo overlap */
+        }
+
+        .sidebar h3 {
+            border-bottom: 1px solid #444;
+            padding-bottom: 5px;
+            margin-bottom: 15px;
+            font-size: 14pt;
+        }
+
+        .contact-item {
+            margin-bottom: 15px;
+            font-size: 9pt;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .outline-title {
+            border: 1px solid white;
+            border-radius: 20px;
+            text-align: center;
+            padding: 5px;
+            margin: 25px 0 15px;
+            font-size: 12pt;
+        }
+
+        .sidebar ul {
+            list-style: none;
+            padding: 0;
+            font-size: 10pt;
+        }
+
+        .sidebar ul li { margin-bottom: 8px; }
+
+        /* Main Body (White) */
+        .main-body {
+            width: 67%;
+            padding: 40px 35px;
+        }
+
+        .section-pill {
+            background-color: var(--primary-blue);
+            color: white;
+            padding: 6px 25px;
+            border-radius: 20px;
+            display: inline-block;
+            margin-bottom: 20px;
+            font-weight: bold;
+            font-size: 11pt;
+        }
+
+        .experience-item, .education-item {
+            margin-bottom: 20px;
+        }
+
+        .item-header {
+            display: flex;
+            justify-content: space-between;
+            font-weight: bold;
+            font-size: 11pt;
+        }
+
+        .item-sub {
+            color: var(--primary-blue);
+            font-weight: bold;
+            margin-bottom: 5px;
+            font-size: 10pt;
+        }
+
+        .item-desc {
+            font-size: 9pt;
+            color: var(--text-gray);
+            line-height: 1.4;
+        }
+
+        /* Progress Bars */
+        .skill-row {
+            display: flex;
+            align-items: center;
+            margin-bottom: 12px;
+            font-size: 10pt;
+        }
+
+        .skill-label { width: 40%; }
+        .skill-track {
+            flex: 1;
+            height: 8px;
+            background: #e0e0e0;
+            margin: 0 15px;
+            border-radius: 4px;
+        }
+        .skill-fill {
+            height: 100%;
+            background: var(--primary-blue);
+            border-radius: 4px;
+        }
+        .skill-percent { width: 10%; text-align: right; }
+
+        /* --- Print Mode --- */
+        @media print {
+            body { background: none; }
+            .controls { display: none; }
+            .page { 
+                margin: 0; 
+                box-shadow: none; 
+                width: 210mm;
+                height: 297mm;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="controls">
+        <button class="btn-pdf" onclick="window.print()">Download as A4 PDF</button>
+    </div>
+
+    <div class="page">
+        <div class="photo-circle">
+            <img src="Image/icon.jpg" alt="Richard Sanchez">
+        </div>
+
+        <header class="header-banner">
+            <div>
+                <h1>OM VEASNA</h1>
+                <p> IT Support</p>
+            </div>
+        </header>
+
+        <div class="content">
+            <aside class="sidebar">
+                <section>
+                    <h3>About Me</h3>
+                    <p style="font-size: 9pt; line-height: 1.5;">
+                        A dedicated Year 1 Semester 2 student with a proven track record as a Page Administrator. Experienced in social media management, customer engagement, and administrative support. I am a detail-oriented individual with strong communication skills, seeking to leverage my experience to contribute effectively to a professional work environment.
+                    </p>
+                </section>
+
+                <br>
+                <section style="margin-top: 30px;">
+                    <div class="contact-item">📞 +85599 311 622</div>
+                    <div class="contact-item">📧 Omveasna17@gmail.com</div>
+                    <div class="contact-item">📍 #396, Boeng Keng Kang Ti Bei., Phnom Penh</div>
+                    <div class="contact-item">Github: https://github.com/Veasna18 </div>
+                </section>
+
+                <br>
+                <div class="outline-title">Language</div>
+                <ul>
+                    <li>Khmer    (Mother Tongue)</li>
+                    <li>English  (basic)</li>
+                </ul>
+
+                <br>
+                <div class="outline-title">Expertise</div>
+                <ul>
+                    <li>Management Skills</li>
+                    <li>Creativity</li>
+                    <li>Digital Marketing</li>
+                    <li>Negotiation</li>
+                    <li>Critical Thinking</li>
+                </ul>
+            </aside>
+
+            <main class="main-body">
+                <section>
+                    <div class="section-pill">Experience</div>
+                    
+                    <div class="experience-item">
+                        <div class="item-header">
+                            <span>Page Administrator</span>
+                            <span>2024 - Present</span>
+                        </div>
+                        <div class="item-sub">Free landcer</div>
+                        <p class="item-desc">
+                            <strong>Customer Engagement: </strong>Managed and responded to customer inquiries via Inbox and Comments promptly and professionally.
+                        <br><strong>Content Scheduling: </strong>Organized and scheduled social media posts to drive consistent audience engagement.
+                        <br><strong>Product Knowledge & Problem Solving: </strong>Provided detailed information regarding products/services and resolved customer issues effectively.
+                        </p>
+                    </div>
+
+                    
+                </section>
+
+                <section>
+                    <div class="section-pill">Education</div>
+                    <div class="education-item">
+                        <div class="item-header">BELTEI International University</div>
+                        <div class="item-sub">Bachelor of Computer Science | 2025 - Curren</div>
+                    </div>
+                    <div class="education-item">
+                        <div class="item-header">Hun Sen BatDeng High School</div>
+                        <div class="item-sub">Graduated in Grade 12 | 2022 - 2025</div>
+                    </div>
+                </section>
+
+                <section>
+                    <div class="section-pill">Skills Summary</div>
+                    
+                    <div class="skill-row">
+                        <div class="skill-label">Design Process</div>
+                        <div class="skill-track"><div class="skill-fill" style="width: 68%;"></div></div>
+                        <div class="skill-percent">68%</div>
+                    </div>
+
+                    <div class="skill-row">
+                        <div class="skill-label">Video Editing</div>
+                        <div class="skill-track"><div class="skill-fill" style="width: 70%;"></div></div>
+                        <div class="skill-percent">70%</div>
+                    </div>
+
+                    <div class="skill-row">
+                        <div class="skill-label">C++ Language</div>
+                        <div class="skill-track"><div class="skill-fill" style="width: 55%;"></div></div>
+                        <div class="skill-percent">55%</div>
+                    </div>
+
+                    <div class="skill-row">
+                        <div class="skill-label">Python Language</div>
+                        <div class="skill-track"><div class="skill-fill" style="width: 60%;"></div></div>
+                        <div class="skill-percent">60%</div>
+                    </div>
+
+                    <div class="skill-row">
+                        <div class="skill-label">Software Management</div>
+                        <div class="skill-track"><div class="skill-fill" style="width: 75%;"></div></div>
+                        <div class="skill-percent">75%</div>
+                    </div>
+
+                    <div class="skill-row">
+                        <div class="skill-label">Networking & Communication</div>
+                        <div class="skill-track"><div class="skill-fill" style="width: 80%;"></div></div>
+                        <div class="skill-percent">80%</div>
+                    </div>
+                </section>
+
+                <section>
+                    <br>
+                    <div class="section-pill">Reference</div>
+                    <div class="education-item">
+                        <div class="item-header">Mrs. Thol Sreyroth | 096 63 94 326</div>
+                        <div class="item-sub">Account Receivable at Chhivtimex Group (Duong Chhiv Import Export) Co,. Ltd.</div>
+                    </div>
+                    <div class="education-item">
+                        <div class="item-header">Mr. Neang Makara | 096 32 33 769</div>
+                        <div class="item-sub">Lecturer, Faculty of Information Technology and Science, BELTEI International University, </div>
+                    </div>
+                </section>
+            </main>
+        </div>
+    </div>
+
+</body>
+</html>
